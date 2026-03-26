@@ -194,10 +194,10 @@ rsleep (int t)
     
     if (first_call == true)
     {
-        srandom (time(NULL));
+        srand (time(NULL));
         first_call = false;
     }
-    usleep (random () % t);
+    usleep (rand () % t);
 }
 
 
@@ -242,7 +242,7 @@ get_next_item(void)
 	    {
 	        // for the first n-1 items: any job can be given
 	        // e.g. "random() % NROF_ITEMS", but here we bias the lower items
-	        found = (random() % (2*NROF_PRODUCERS)) % NROF_ITEMS;
+	        found = (rand() % (2*NROF_PRODUCERS)) % NROF_ITEMS;
 	    }
 	    else
 	    {
@@ -251,7 +251,7 @@ get_next_item(void)
 	        if (jobs[found] == true)
 	        {
 	            // already handled, find a random one, with a bias for lower items
-	            found = (counter + (random() % NROF_PRODUCERS)) % NROF_ITEMS;
+	            found = (counter + (rand() % NROF_PRODUCERS)) % NROF_ITEMS;
 	        }    
 	    }
 	    
