@@ -1,0 +1,14 @@
+# PDFs
+*.pdf
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+
+# C/C++
+*.o
+*.exe
