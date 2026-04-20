@@ -12,3 +12,5 @@ __pycache__/
 # C/C++
 *.o
 *.exe
+
+*.zip
