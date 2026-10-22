@@ -1,16 +1,20 @@
-# PDFs
+# PDFs (assignment hand-outs and reports stay out of the repo)
 *.pdf
+*.zip
 
 # OS / IDE
 .DS_Store
 Thumbs.db
+.vscode/
 
-# Python
-__pycache__/
-*.pyc
-
-# C/C++
+# Build outputs
 *.o
 *.exe
-
-*.zip
+Condition Variables/basic/prodcons
+Interprocess Communication/router_dealer
+Interprocess Communication/client
+Interprocess Communication/worker_s1
+Interprocess Communication/worker_s2
+Threading/basic/intersection
+Threading/advanced/intersection
+out.txt

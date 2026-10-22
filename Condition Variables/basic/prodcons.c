@@ -1,13 +1,6 @@
 /* 
  * Operating Systems  (2INC0)  Practical Assignment.
  * Condition Variables Application.
- *
- * Weiping Yan [student number removed]
- * STUDENT_NAME_2 (STUDENT_NR_2)
- *
- * Grading:
- * Students who hand in clean code that fully satisfies the minimum requirements will get an 8. 
- * Extra steps can lead to higher marks because we want students to take the initiative.
  */
  
 #include <stdio.h>

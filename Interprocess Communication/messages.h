@@ -1,18 +1,6 @@
 /* 
  * Operating Systems  (2INCO)  Practical Assignment
  * Interprocess Communication
- *
- * [teammate] ([student number removed])
- * [teammate] ([student number removed])
- * Weiping Yan ([student number removed])
- *
- * Grading:
- * Your work will be evaluated based on the following criteria:
- * - Satisfaction of all the specifications
- * - Correctness of the program
- * - Coding style
- * - Report quality
- * - Deadlock analysis
  */
 
 #ifndef MESSAGES_H
