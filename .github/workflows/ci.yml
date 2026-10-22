@@ -1,0 +1,40 @@
+name: build-and-run
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Condition variables - build and check ordering
+        working-directory: Condition Variables/basic
+        run: |
+          make
+          ./prodcons > out.txt
+          # the consumer must print 0..1999 exactly once and in order
+          seq 0 1999 | diff - out.txt
+          echo "prodcons printed $(wc -l < out.txt) items in order"
+
+      - name: Interprocess communication - build and run
+        working-directory: Interprocess Communication
+        run: |
+          make
+          ./router_dealer | tee out.txt
+          test "$(wc -l < out.txt)" -eq 30
+
+      - name: Threading (basic, one mutex) - build and run
+        working-directory: Threading/basic
+        run: |
+          make
+          timeout 60 ./intersection
+
+      - name: Threading (advanced, per-conflict mutexes) - build and run
+        working-directory: Threading/advanced
+        run: |
+          make
+          timeout 60 ./intersection
