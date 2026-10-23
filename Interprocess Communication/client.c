@@ -14,8 +14,6 @@
 #include "messages.h"
 #include "request.h"
 
-static void rsleep (int t);
-
 
 int main (int argc, char * argv[])
 {
