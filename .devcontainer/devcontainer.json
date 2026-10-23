@@ -1,0 +1,6 @@
+// VS Code Dev Containers setup for all three assignments.
+// The image already includes gcc and make, so nothing else needs to be installed.
+{
+	"name": "OS-project",
+	"image": "mcr.microsoft.com/devcontainers/base:jammy"
+}

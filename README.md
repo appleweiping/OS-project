@@ -4,8 +4,10 @@ My team's C solutions to the three practical assignments of the TU/e Operating S
 a traffic-intersection simulation with POSIX threads and semaphores, a router/worker system that passes
 jobs over POSIX message queues, and an ordered producer/consumer buffer built on condition variables.
 
-The code targets Linux (glibc, `-lpthread`, `-lrt`). On Windows I ran it under WSL; the
-`Interprocess Communication/.devcontainer` folder also works with VS Code Dev Containers.
+The code targets Linux (glibc, `-lpthread`, `-lrt`). On Windows I ran it under WSL. You can also
+open the repo in VS Code Dev Containers: `.devcontainer/` uses the
+`mcr.microsoft.com/devcontainers/base:jammy` image, which already has gcc and make, and all three
+assignments build and run in it.
 
 ```text
 $ cd Threading/advanced && make && ./intersection
