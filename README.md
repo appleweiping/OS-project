@@ -19,11 +19,15 @@ traffic light 2 0 turns green at time 13 for car 3
 traffic light 2 1 turns red at time 15
 traffic light 2 0 turns red at time 18
 
-$ cd "Interprocess Communication" && make && ./router_dealer | head -4
+$ cd "Interprocess Communication" && make && ./router_dealer > out.txt && head -4 out.txt
+gcc -Wall -ggdb2 -o router_dealer router_dealer.c -lrt -lm
+gcc -Wall -ggdb2 -o client client.c request.c -lrt -lm
+gcc -Wall -ggdb2 -o worker_s1 worker_s1.c service1.c -lrt -lm
+gcc -Wall -ggdb2 -o worker_s2 worker_s2.c service2.c -lrt -lm
+5 -> 377
 4 -> 233
-19 -> 2303
-1 -> 55
-6 -> 610
+16 -> 11510
+17 -> 1151
 ```
 
 (Captured on Ubuntu 24.04 under WSL2, gcc 13.3. The intersection run takes 40 s because the
@@ -34,8 +38,9 @@ simulation runs in real time until `END_TIME`.)
 ### 1. Threading: traffic intersection
 
 Each of the 12 entry lanes (4 sides x left/straight/right) has its own traffic-light thread. A
-supplier thread releases cars at the times listed in `input.h` and wakes the matching light with a
-semaphore. A car holds the intersection for `CROSS_TIME` = 5 s.
+supplier thread releases cars at the times listed in `input.h` and posts the matching light's
+semaphore. In the advanced version the light blocks on it with `sem_timedwait`; the basic version
+polls it with `sem_trywait` every 100 ms. A car holds the intersection for `CROSS_TIME` = 5 s.
 
 | Version | File | Locking |
 |---------|------|---------|
@@ -62,6 +67,10 @@ client --req--> router_dealer --S1--> worker_s1 x5  (service 1: n-th Fibonacci n
 The client reads its jobs from `request.c` (30 jobs in the current test set). The router prints one
 `job -> result` line per finished job, so the order changes from run to run. When all responses are
 in, it shuts the workers down and removes the queues.
+
+Don't pipe it straight into `head`: once `head` exits, the router's next `printf` gets SIGPIPE and
+kills it before the cleanup, leaving ten blocked workers and four queues in `/dev/mqueue`. Write
+the output to a file first (`./router_dealer > out.txt`), as in the example above.
 
 Queue names include the router's PID, so two runs on the same machine do not collide. Note that
 `MQ_MAX_MESSAGES` must not exceed `/proc/sys/fs/mqueue/msg_max` (10 on most systems).
