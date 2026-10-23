@@ -89,7 +89,6 @@ producer (void * arg)
         //      possible-cv-signals;
         //      mutex-unlock;
         //
-        // (see condition_test() in condition_basics.c how to use condition variables)
     }
 	return (NULL);
 }
