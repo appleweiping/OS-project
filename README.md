@@ -6,7 +6,7 @@ jobs over POSIX message queues, and an ordered producer/consumer buffer built on
 
 The code targets Linux (glibc, `-lpthread`, `-lrt`). On Windows I ran it under WSL. You can also
 open the repo in VS Code Dev Containers: `.devcontainer/` uses the
-`mcr.microsoft.com/devcontainers/base:jammy` image, which already has gcc and make, and all three
+`mcr.microsoft.com/devcontainers/cpp:jammy` image, which ships gcc and make, and all three
 assignments build and run in it.
 
 ```text
@@ -21,7 +21,7 @@ traffic light 2 0 turns green at time 13 for car 3
 traffic light 2 1 turns red at time 15
 traffic light 2 0 turns red at time 18
 
-$ cd "Interprocess Communication" && make && ./router_dealer > out.txt && head -4 out.txt
+$ cd ../../"Interprocess Communication" && make && ./router_dealer > out.txt && head -4 out.txt
 gcc -Wall -ggdb2 -o router_dealer router_dealer.c -lrt -lm
 gcc -Wall -ggdb2 -o client client.c request.c -lrt -lm
 gcc -Wall -ggdb2 -o worker_s1 worker_s1.c service1.c -lrt -lm
@@ -86,13 +86,14 @@ is exactly `0` to `1999`, one per line.
 
 ## Build and run
 
-Each folder has a Makefile:
+Each folder has a Makefile. From the repo root (each line runs in its own subshell, so the block can be
+pasted as is):
 
 ```bash
-cd "Condition Variables/basic" && make && ./prodcons | tail -3
-cd "Interprocess Communication" && make && ./router_dealer
-cd Threading/basic && make && ./intersection
-cd Threading/advanced && make && ./intersection
+(cd "Condition Variables/basic" && make && ./prodcons | tail -3)
+(cd "Interprocess Communication" && make && ./router_dealer > out.txt && wc -l out.txt)
+(cd Threading/basic && make && ./intersection)
+(cd Threading/advanced && make && ./intersection)
 ```
 
 GitHub Actions builds all four programs on Ubuntu and runs them
